@@ -8,7 +8,6 @@ const UserSchema = new mongoose.Schema( {
     email: {
         type: String,
         required: true,
-        unique: true
     },    
     password: {
         type: String,
@@ -17,7 +16,7 @@ const UserSchema = new mongoose.Schema( {
     passwordResetToken: {
         type: String
     },
-    passwordResetExpires: {
+    passwordResetTokenExpires: {
         type: Date
     },
     isVerified: {
@@ -27,26 +26,30 @@ const UserSchema = new mongoose.Schema( {
     date: {
         type: Date,
         default: Date.now
+    },
+    emailCommentNotification : {
+        type: Boolean,
+        default: false
     }
 });
 
-const tokenSchema = new mongoose.Schema( {
-    _userID: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
-    },
-    token: {
-        type: String,
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        required: true,
-        default: Date.now,
-        expires: 86400
-    }
-});
+// const tokenSchema = new mongoose.Schema( {
+//     _userID: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         required: true,
+//         ref: 'User'
+//     },
+//     token: {
+//         type: String,
+//         required: true
+//     },
+//     createdAt: {
+//         type: Date,
+//         required: true,
+//         default: Date.now,
+//         expires: 86400
+//     }
+// });
 
 const User = mongoose.model('User', UserSchema);
 
