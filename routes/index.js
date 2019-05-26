@@ -20,7 +20,14 @@ router.post('/register', authenticationController.postRegister);
 router.post('/login', authenticationController.postLogin);
 
 // Reset password page - send email
-router.get('/forgot-password', (req, res) => res.render('authentication/forgot-password'));
+router.get('/forgot-password', authenticationController.getForgotPassword);
+
+// Reset password handle
+
+// New password page (after being given a temp password in email)
+router.get('/new-password', authenticationController.getNewPassword);
+
+// New pass handle
 
 // Dashboard page
 // router.get('/dashboard', ensureAuthenticated, (req, res) => 

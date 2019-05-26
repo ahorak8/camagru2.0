@@ -6,6 +6,7 @@ const { ensureAuthenticated } = require('../config/auth');
 
 //Controllers
 const authenticationController = require('../controllers/authentication');
+const usersController = require('../controllers/users');
 
  // Gallery page
  router.get('/gallery', ensureAuthenticated, (req, res) => 
@@ -21,20 +22,11 @@ router.get('/studio', ensureAuthenticated, (req, res) =>
     })
 );
 
-// New password page (after following reset link)
-router.get('/new-password', (req, res) => res.render('authentication/new-password'));
-
 // User "My Account" page - update details
-router.get('/my-account', ensureAuthenticated, (req, res) =>
-    res.render('user/my-account', {
-        userName: req.user.name,
-        userEmail: req.user.email
-    }));
+router.get('/my-account', ensureAuthenticated, usersController.getMyAccount);
 
-// Update Account Handle
-router.post('/update-account', ensureAuthenticated, (req, res) => {
-
-});
+// Update Account Handle 
+router.post('/update-account', ensureAuthenticated, usersController.postMyAccount);
 
 // Logout Handle
 router.get('/logout', authenticationController.getLogout);
