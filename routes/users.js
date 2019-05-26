@@ -28,6 +28,13 @@ router.get('/login', (req, res) => res.render('authentication/login'));
 // Register page
 router.get('/register', (req, res) => res.render('authentication/register'));
 
+ // Gallery page
+ router.get('/gallery', ensureAuthenticated, (req, res) => 
+    res.render('user/gallery', {
+        userName: req.user.name
+    })
+);
+
 // Reset password page - send email
 router.get('/forgot-password', (req, res) => res.render('authentication/forgot-password'));
 
