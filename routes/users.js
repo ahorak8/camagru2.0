@@ -29,7 +29,7 @@ router.get('/login', (req, res) => res.render('authentication/login'));
 router.get('/register', (req, res) => res.render('authentication/register'));
 
 // Reset password page - send email
-router.get('/reset-password', (req, res) => res.render('authentication/reset-password'));
+router.get('/forgot-password', (req, res) => res.render('authentication/forgot-password'));
 
 // New password page (after following reset link)
 router.get('/new-password', (req, res) => res.render('authentication/new-password'));

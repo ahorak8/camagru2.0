@@ -7,20 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-        <!-- Gallery for logged in users -->
-        <li class="nav-item">
-          <a class="nav-link" href="/users/gallery">Gallery</a> 
+          <!-- Gallery for guests -->
+          <a class="nav-link" href="/guest">Gallery</a> 
+        </li>
+          <a class="nav-link" href="/users/login">Login</a> 
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/users/studio">Studio</a> 
-        </li>
-          <a class="nav-link" href="/users/my-account">My Account</a> 
-        </li>        
-        <li class="nav-item">
-          <a class="nav-link" href="/users/logout">Log Out</a> 
-        </li>
+          <a class="nav-link" href="/users/register">Register</a> 
+        </li>  
         <li>
-            <p class="nav-link">Welcome <%= userName %> </p>
+            <p class="nav-link">Welcome Guest</p>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
