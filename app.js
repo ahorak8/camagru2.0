@@ -5,9 +5,14 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const nodemailer = require('nodemailer');
-// const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser'); 
 
 const app = express();
+
+//Routes variables
+const indexRoutes = require('./routes/index');
+const guestRoutes = require('./routes/guest');
+const userRoutes = require('./routes/users');
 
 // Passport config
 require('./config/passport')(passport);
@@ -25,11 +30,11 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
 // Bodyparser middleware
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false}));
 
 // Express Session middleware
 app.use(session({
-    secret: 'secert',
+    secret: 'secret',
     resave: true,
     saveUninitialized: true,
   }));
@@ -50,8 +55,13 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
+app.use('/', indexRoutes);
+app.use('/guest', guestRoutes);
+app.use('/users', userRoutes);
+
+app.use((req, res, next) => {
+    res.render('404');
+});
 
 const PORT = process.env.PORT || 5000;
 
