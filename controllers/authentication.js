@@ -29,7 +29,17 @@ exports.postLogin = (req, res, next) => {
     })(req, res, next);
 };
 
-// Controller for Logout Handles ** getLogout
+// Controller for Forgot Password page ** getForgotPassword
+exports.getForgotPassword = (req, res) => res.render('authentication/forgot-password');
+
+//Controller for Forgot Password Handle ** postForgotPassword
+
+// Controller for New Password page ** getNewPassword
+exports.getNewPassword = (req, res) => res.render('authentication/new-password');
+
+// Controller for New Password Handle ** postNewPassword
+
+// Controller for Logout Handle ** getLogout
 exports.getLogout = (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');

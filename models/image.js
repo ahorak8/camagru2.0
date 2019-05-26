@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ImageSchema = new mongoose.Schema( {
+const imageSchema = new mongoose.Schema( {
     userId : {
         type: Schema.Types.ObjectId,
         ret: User,
@@ -12,4 +12,4 @@ const ImageSchema = new mongoose.Schema( {
     }
 });
 
-const User = mongoose.model('Images', ImageSchema);
+const User = mongoose.model('Image', imageSchema);

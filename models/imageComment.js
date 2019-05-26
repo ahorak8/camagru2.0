@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const CommentsSchema = new mongoose.Schema ({
+const commentSchema = new mongoose.Schema ({
     userId : {
         type: Schema.Types.ObjectId,
         ret: User,
@@ -17,4 +17,4 @@ const CommentsSchema = new mongoose.Schema ({
     }
 });
 
-const User = mongoose.model('Comments', CommentsSchema);
+const User = mongoose.model('Comment', commentSchema);
