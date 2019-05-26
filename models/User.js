@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema( {
     },
     emailCommentNotification : {
         type: Boolean,
-        default: false
+        default: true
     }
 });
 

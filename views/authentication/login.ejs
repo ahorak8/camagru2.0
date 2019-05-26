@@ -5,7 +5,7 @@
                 <i class="fas fa-sign-in-alt"></i> Login
             </h1>
             <% include ../partials/messages %>
-            <form action="/users/login" method="POST">
+            <form action="/login" method="POST">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input 
@@ -26,8 +26,9 @@
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
             <p class="lead mt-4">
-                No Account? <a href="/users/register">Register</a>
-            </p>
+                No Account? <a href="/register">Register</a>
+                <a style="position:absolute; right:10%" href="/forgot-password">Forgot Password?</a>
+            </p> 
             <a href="/guest" class="btn btn-info btn-block">View as Guest</a>
         </div>
     </div>

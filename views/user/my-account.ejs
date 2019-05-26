@@ -1,6 +1,6 @@
-<h1 class="mt-4">My Account</h1>
-<p class="lead mb-3">Update Account Details</p>
-
+<h1 class="mt-4">My Account - Update Details</h1>
+<%- include('../includes/navbar.ejs') %>
+</br>
 <form action="/users/update-account" method="POST">
     <div class="form-group">
         <label for="name">Current Username: <%= userName %></label>
@@ -31,13 +31,13 @@
         <div class="form-check">
             <label> Would you like to receive notifications via email of comments?</label>
         </br>
-              <input type="radio" class="form-check-input" name="emailNotifications" id="optionsRadios1" value="true">
+              <input type="radio" class="form-check-input" name="emailNotifications" id="optionsRadios1" value="true" checked="">
               <label>Yes</label>
             <!-- </label> -->
           </div>
           <div class="form-check">
           <!-- <label class="form-check-label"> -->
-              <input type="radio" class="form-check-input" name="emailNotifications" id="optionsRadios2" value="false" checked="">
+              <input type="radio" class="form-check-input" name="emailNotifications" id="optionsRadios2" value="false">
              <label>No </label> 
             <!-- </label> -->
           </div>
@@ -47,6 +47,8 @@
         Update
     </button>
 </form>
+</br>
+
 
 <!-- <form action="/users/update-username" method="POST">
     <div class="form-group">
@@ -89,4 +91,4 @@
         Update Email
     </button>
 </form> -->
-<a href="/users/logout" class="btn btn-secondary">Logout</a>
+<!-- <a href="/users/logout" class="btn btn-secondary">Logout</a> -->
