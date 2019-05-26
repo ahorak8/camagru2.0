@@ -3,14 +3,19 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
+// Calling ensureAuthenticated function
+const { ensureAuthenticated } = require('../config/auth');
+
 // Variables for sending verification email
 const nodemailer = require('nodemailer');
+// const nodemailerSendgrid = require('nodemailer-sendgrid');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 // Transporter variable
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
-        api_key: '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'
+        // api_key: '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'
+        api_key: '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'
     }
 }));
 
@@ -18,10 +23,28 @@ const transporter = nodemailer.createTransport(sendgridTransport({
 const User = require('../models/User');
 
 // Login page
-router.get('/login', (req, res) => res.render('login'));
+router.get('/login', (req, res) => res.render('authentication/login'));
 
 // Register page
-router.get('/register', (req, res) => res.render('register'));
+router.get('/register', (req, res) => res.render('authentication/register'));
+
+// Reset password page - send email
+router.get('/reset-password', (req, res) => res.render('authentication/reset-password'));
+
+// New password page (after following reset link)
+router.get('/new-password', (req, res) => res.render('authentication/new-password'));
+
+// User "My Account" page - update details
+router.get('/my-account', ensureAuthenticated, (req, res) =>
+    res.render('user/my-account', {
+        userName: req.user.name,
+        userEmail: req.user.email
+    }));
+
+// Update Account Handle
+router.post('/update-account', ensureAuthenticated, (req, res) => {
+
+});
 
 // Register Handle
 router.post('/register', (req, res) => {
@@ -44,7 +67,7 @@ router.post('/register', (req, res) => {
     }
 
     if(errors.length > 0) {
-        res.render('register', {
+        res.render('authentication/register', {
             errors,
             name,
             email,
@@ -53,12 +76,12 @@ router.post('/register', (req, res) => {
         });
     } else {
         // Validation passed
-        User.findOne({ email: email })
+        User.findOne({ email })
         .then(user => {
             if(user) {
                 // User email exists
                 errors.push({ msg: 'Email is already registered'});
-                res.render('register', {
+                res.render('authentication/register', {
                     errors,
                     name,
                     email,
@@ -79,17 +102,18 @@ router.post('/register', (req, res) => {
 
                         // Set password to hashed version
                         newUser.password = hash;
+
                         // Save user
                         newUser.save()
                             .then(user => {
                                 req.flash('success_msg', 'You are now registed. Please verify your email to log in');
-                                res.redirect('/users/login');
                                 transporter.sendMail({
-                                    to: 'email',
+                                    to: email,
                                     from: 'no-reply@camagru.com',
                                     subject: 'Camagru - Verify Email',
                                     html: '<h1>You signed up to Camagru<1>'
                                 });
+                                res.redirect('/users/login');
                             })
                             .catch(err => console.log(err));
                 }))

@@ -9,6 +9,7 @@ router.get('/', (req, res) => res.render('welcome'));
 router.get('/dashboard', ensureAuthenticated, (req, res) => 
     res.render('dashboard', {
         userName: req.user.name
-    }));
+    })
+);
 
 module.exports = router;
