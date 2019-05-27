@@ -14,3 +14,15 @@ exports.postMyAccount = (req, res) => {
 
     
 };
+
+// Controller for Studio page ** getStudio
+exports.getStudio = (req, res) =>
+res.render('user/studio', {
+    userName: req.user.name
+});
+
+// Controller for Gallery page ** getGallery
+exports.getGallery = (req, res) => 
+res.render('user/gallery', {
+    userName: req.user.name
+});

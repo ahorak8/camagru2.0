@@ -1,5 +1,6 @@
 const passport = require('passport'); 
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 // ********************* Variables for Register Controller **************************************************
 // Variables for sending verification email
@@ -82,7 +83,7 @@ exports.postRegister = (req, res) => {
         User.findOne({ email })
         .then(user => {
             if(user) {
-                // User email exists
+                // User email already in use
                 errors.push({ msg: 'Email is already registered'});
                 res.render('authentication/register', {
                     errors,
@@ -106,16 +107,28 @@ exports.postRegister = (req, res) => {
                         // Set password to hashed version
                         newUser.password = hash;
 
+                        // Create verifyToken
+                        var seed = crypto.randomBytes(20);
+                        const verifyToken = crypto.createHash('sha1').update(seed + email).digest('hex');
+
+                        // Save verifyToken to DB
+                        newUser.verifyToken = verifyToken;
+                        
                         // Save user
                         newUser.save()
                             .then(user => {
                                 req.flash('success_msg', 'You are now registed. Please verify your email to log in');
+                                
+                                // URL to send to user to verify
+                                URL = "http://localhost:5000/verify?id=" + verifyToken;
+
                                 // Send verification email
                                 transporter.sendMail({
                                     to: email,
                                     from: 'no-reply@camagru.com',
                                     subject: 'Camagru - Verify Email',
-                                    html: '<h1>You signed up to Camagru<1>'
+                                    html: '<h1>You signed up to Camagru<h1>',
+                                    html: `Click the following link to confirm your account:</p><p>${URL}</p>`,
                                 });
                                 res.redirect('/login');
                             })
@@ -125,3 +138,31 @@ exports.postRegister = (req, res) => {
         });
     }
 };
+// Controller for Verify page ** getVerify
+exports.getVerify = (req, res) => {
+    var verifyTokenFromURL = req.query.id;
+
+    // Find the user that matches the verifyToken
+    User.findOne({ verifyToken: verifyTokenFromURL })
+    .then(user => {
+        if(!user) {
+            req.flash('error', 'Email is already verified');
+            res.redirect('/register');
+            return;
+        }
+        user.isVerified = true;
+        user.verifyToken = ''; // Setting verifyToken to nothing once validation
+
+        user.save(); 
+        req.flash('success_msg', 'Thank you for verifying. You may now login');
+        res.redirect('/login');
+    })
+    .catch(err => console.log(err));
+    // res.render('/login');
+};
+
+// Controller for Verify Handle ** postVerify
+// exports.postVerify = (req, res) => {
+
+    
+// };

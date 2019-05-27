@@ -9,18 +9,10 @@ const authenticationController = require('../controllers/authentication');
 const usersController = require('../controllers/users');
 
  // Gallery page
- router.get('/gallery', ensureAuthenticated, (req, res) => 
-    res.render('user/gallery', {
-        userName: req.user.name
-    })
-);
+ router.get('/gallery', ensureAuthenticated, usersController.getGallery);
 
 //Studio page
-router.get('/studio', ensureAuthenticated, (req, res) =>
-    res.render('user/studio', {
-        userName: req.user.name
-    })
-);
+router.get('/studio', ensureAuthenticated, usersController.getStudio);
 
 // User "My Account" page - update details
 router.get('/my-account', ensureAuthenticated, usersController.getMyAccount);

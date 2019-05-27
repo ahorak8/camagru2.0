@@ -19,6 +19,9 @@ router.post('/register', authenticationController.postRegister);
 // Login Handle 
 router.post('/login', authenticationController.postLogin);
 
+// Verify email page
+router.get('/verify', authenticationController.getVerify);
+
 // Reset password page - send email
 router.get('/forgot-password', authenticationController.getForgotPassword);
 
@@ -27,7 +30,7 @@ router.get('/forgot-password', authenticationController.getForgotPassword);
 // New password page (after being given a temp password in email)
 router.get('/new-password', authenticationController.getNewPassword);
 
-// New pass handle
+// New password handle
 
 // Dashboard page
 // router.get('/dashboard', ensureAuthenticated, (req, res) => 
@@ -35,7 +38,5 @@ router.get('/new-password', authenticationController.getNewPassword);
 //         userName: req.user.name
 //     })
 // );
-
-
 
 module.exports = router;
