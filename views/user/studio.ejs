@@ -1,19 +1,15 @@
 <h1 class="mt-4">Studio</h1>
-<%- include('../includes/navbar.ejs') %>
-
-<body onload="startCam()">
+    <%- include('../includes/navbar.ejs') %>
 <main>
-    <div>
-        <video id="video" width="600" height="450" autoplay></video>
-        <button class="button-pic" id="snap">Take Photo</button>
-        <canvas id="canvas" width="600" height="450"></canvas>
-
-        <form method="post" action="/users/studio">
-
-            <input name="imgsrc" id="imgsrc" type="hidden">
-            <button class="button-pic" type="submit" name="submit" id="submitphoto">Submit Photo</button>
-        </form>
-    </div>
+        <div class="booth">
+            <video id="video" width="600" height="450" autoplay></video>
+            <button class="button-pic" id="snap">Snap Photo</button>
+            <canvas id="canvas" width="600" height="450"></canvas>
+            <form method="post" action="/users/studio">
+                <input name="imgsrc" id="imgsrc" type="hidden">
+                <button class="button-pic" type="submit" name="submit" id="submitphoto">Submit Photo</button>
+            </form>
+        </div>
     
     </br>
     <div class="flex-container">

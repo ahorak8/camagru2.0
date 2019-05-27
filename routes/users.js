@@ -26,4 +26,7 @@ router.post('/update-account', ensureAuthenticated, usersController.postMyAccoun
 // Logout Handle
 router.get('/logout', authenticationController.getLogout);
 
+// Delete Account Handle
+router.get('/delete-account', usersController.getDeleteAccount);
+
 module.exports = router;

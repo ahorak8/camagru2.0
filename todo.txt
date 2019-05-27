@@ -1,0 +1,73 @@
+NB TODO:
+- update account : users/my-account
+- studio (webcam, upload images, stickers) : users/studio
+- display gallery : users/gallery && /guest
+- image comments and likes : users/gallery && image_url
+- comment notification send : image_url
+- Forgot pass email send : users/forgot-password (reset password handle)
+- Update new password : users/new-password (new password handle)
+
+Less important to do:
+- more complex password required : users/register
+- navbar active page : navbar && guest-navbar
+
+*THINGS TO LEARN:
+- EJS :: 80%
+- NodeJS :: 85%
+- ExpressJS :: 80%
+- MongoDB :: 50%
+- PassportJS :: 45%
+- Mocha :: 0%
+
+*Decent page layout:
+- header : navbar, header. 
+- main section : body
+- footer : ahorak
+
+*Must display correctly on mobile devices
+*Must have an adapted layout on small resolutions
+
+*User features:
+- Allow a user to sign up by:
+    - valid email address
+    - username
+    - password (complex)
+- User confirm their account via unique link sent to email address
+- Sign in using username + password
+- Forgot password link 
+- Logout in one click on any page
+- Able to modify username, mail address and password
+
+*Gallery features:
+- Must be public
+- Must display all images by all users, ordered by date of creation
+- Allow only a signed-in user to like and/or comment
+- New comment notifications are sent via email. Optional to turn off, but set on as default
+- List of images must be paginated, at least 5 elements per page
+
+*Editing features:
+- Only accessible to users that are authentified/ connected
+- Gently reject all other uses that attempt to access without being logged in
+- Page should contain 2 sections:
+    - Main section containing:
+        - Preview of the user's webcam
+        - List of superposable images
+        - Button to captire the picture
+    - Side section displaying thumbnails of all previous pictures taken
+- Superposable images must be selectable
+- The button to capture should be inactive (not clikable) as long as no superposable image has been selected
+- The creation of the final image must be done on the server side 
+- Allow for the upload of a user image instead of capturing one with the webcam
+- User should be able to delete his edited images, but ONLY his, not other users' creations
+
+*Files to contain:
+- index file 
+- config/setup file, capable of recreating the database schema, by using info in database file
+- config/database file, containing your dataase configuration
+
+*The stack:
+- PassportJS, with at least 'local', 'Gmail' and 'bearer' strategies implemented
+- Frontend: handlebars OR EJS
+- Backend: Express and Node
+- database: MongoDB
+- unit testing: Mocha

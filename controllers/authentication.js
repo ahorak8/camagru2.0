@@ -138,6 +138,7 @@ exports.postRegister = (req, res) => {
         });
     }
 };
+
 // Controller for Verify page ** getVerify
 exports.getVerify = (req, res) => {
     var verifyTokenFromURL = req.query.id;
@@ -158,5 +159,4 @@ exports.getVerify = (req, res) => {
         res.redirect('/login');
     })
     .catch(err => console.log(err));
-    // res.render('/login');
 };

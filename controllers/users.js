@@ -58,3 +58,8 @@ exports.getGallery = (req, res) =>
 res.render('user/gallery', {
     userName: req.user.name
 });
+
+// Controller for Delete Account Handle **
+exports.getDeleteAccount = (req, res) => {
+    
+}

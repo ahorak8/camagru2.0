@@ -1,6 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
-const mongoose = require('mongoose'); //Logging in so we need to check if things match, use mongoose to connect
-const bcrypt = require('bcryptjs'); // To compare the hashed passwords
+const bcrypt = require('bcryptjs'); 
 
 // Load User Model
 const User = require('../models/User');
