@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require('passport');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser'); 
+const path = require('path');
 
 const app = express();
 
@@ -26,8 +27,11 @@ mongoose.connect(db, { useNewUrlParser: true })
     .catch(err => console.log(err));
 
 // EJS middleware
-app.use(expressLayouts);
+// app.use(expressLayouts);
 app.set('view engine', 'ejs');
+
+// Set path
+app.use(express.static(path.join(__dirname, '/public/')));
 
 // Bodyparser middleware
 app.use(bodyParser.urlencoded({ extended: false}));
