@@ -14,6 +14,9 @@ const usersController = require('../controllers/users');
 //Studio page
 router.get('/studio', ensureAuthenticated, usersController.getStudio);
 
+// Studio Handle
+router.post('/studio', usersController.postStudio);
+
 // User "My Account" page - update details
 router.get('/my-account', ensureAuthenticated, usersController.getMyAccount);
 

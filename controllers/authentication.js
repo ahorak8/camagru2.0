@@ -160,9 +160,3 @@ exports.getVerify = (req, res) => {
     .catch(err => console.log(err));
     // res.render('/login');
 };
-
-// Controller for Verify Handle ** postVerify
-// exports.postVerify = (req, res) => {
-
-    
-// };
