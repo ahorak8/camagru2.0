@@ -40,7 +40,9 @@ exports.postForgotPassword = (req, res) => {
     User.findOne({ email })
     .then(user => {
         if(!user) {
-            console.log("Email not linked to account");
+            req.flash('error', 'Email not linked to account');
+            res.redirect('/forgot-password');
+            return;
         } else {
             // Create passwordResetToken
             var seed = crypto.randomBytes(20);
@@ -72,13 +74,49 @@ exports.postForgotPassword = (req, res) => {
 
 // Controller for New Password page ** getNewPassword
 exports.getNewPassword = (req, res) => {
-    var passResetTokenFromURL = req.query.id;
-
-    URL
     res.render('authentication/new-password');
 }
 
 // Controller for New Password Handle ** postNewPassword
+exports.postNewPassword = (req, res) => {
+    var passResetTokenFromURL = req.query.id;
+    const { password, password2 } = req.body;
+
+    User.findOne({ passResetToken: passResetTokenFromURL })
+    .then(user => {
+        if(!user) {
+            req.flash('error', 'Reset token not valid');
+            res.redirect('/forgot-password');
+            return;
+        }
+        if (!password || !password2) {
+            req.flash('error', 'Fill in your new password');
+            res.redirect('back');
+            return;
+        }
+        if (password != password2) {
+            req.flash('error', 'Passwords do not match');
+            res.redirect('back');
+            return;
+        }
+        if (!password.length > 6) {
+            req.flash('error', 'Password must be at least 6 characters');
+            res.redirect('back');
+            return;
+        }
+        bcrypt.genSalt(10, (err, salt) =>
+            bcrypt.hash(password, salt, (err, hash) => {
+                if (err) throw err;
+
+                newHashPassword = hash;
+                user.password = newHashPassword;
+                user.save();
+                req.flash('success_msg', 'Password updated. You can log in using your new password');
+                res.redirect('/login');
+            }))
+    })
+    .catch (err => console.log(err));
+}
 
 // Controller for Logout Handle ** getLogout
 exports.getLogout = (req, res) => {
@@ -187,7 +225,7 @@ exports.getVerify = (req, res) => {
     User.findOne({ verifyToken: verifyTokenFromURL })
     .then(user => {
         if(!user) {
-            req.flash('error', 'Email is already verified');
+            req.flash('error', 'Email is already verified and in use');
             res.redirect('/register');
             return;
         }

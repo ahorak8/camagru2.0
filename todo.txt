@@ -1,14 +1,13 @@
 NB TODO:
-- update account : users/my-account
 - studio (webcam, upload images, stickers) : users/studio
 - display gallery : users/gallery && /guest
 - image comments and likes : users/gallery && image_url
 - comment notification send : image_url
-- Forgot pass email send : users/forgot-password (reset password handle)
-- Update new password : users/new-password (new password handle)
 
 Less important to do:
+- update all account details at same time : users/my-account
 - more complex password required : users/register
+- Password Reset Token expires 
 - navbar active page : navbar && guest-navbar
 
 *THINGS TO LEARN:

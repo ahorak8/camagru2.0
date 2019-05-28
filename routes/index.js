@@ -22,15 +22,17 @@ router.post('/login', authenticationController.postLogin);
 // Verify email page
 router.get('/verify', authenticationController.getVerify);
 
-// Reset password page - send email
+// Forgot password page - send email
 router.get('/forgot-password', authenticationController.getForgotPassword);
 
-// Reset password handle
+// Forgot password handle
+router.post('/forgot-password', authenticationController.postForgotPassword);
 
 // New password page (after being given a temp password in email)
 router.get('/new-password', authenticationController.getNewPassword);
 
 // New password handle
+router.post('/new-password', authenticationController.postNewPassword);
 
 // Dashboard page
 // router.get('/dashboard', ensureAuthenticated, (req, res) => 

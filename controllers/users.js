@@ -42,7 +42,6 @@ exports.postMyAccount = (req, res) => {
 
             user.save();
             req.flash('success_msg', 'Account Details Updated!');
-            console.log("Here");
             res.redirect('/users/my-account');
         })
         .catch(err => console.log(err));
