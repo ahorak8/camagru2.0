@@ -21,7 +21,7 @@ router.post('/studio', usersController.postStudio);
 router.get('/my-account', ensureAuthenticated, usersController.getMyAccount);
 
 // Update Account Handle 
-router.post('/update-account', ensureAuthenticated, usersController.postMyAccount);
+router.post('/my-account', ensureAuthenticated, usersController.postMyAccount);
 
 // Logout Handle
 router.get('/logout', authenticationController.getLogout);

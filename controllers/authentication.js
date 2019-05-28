@@ -34,9 +34,49 @@ exports.postLogin = (req, res, next) => {
 exports.getForgotPassword = (req, res) => res.render('authentication/forgot-password');
 
 //Controller for Forgot Password Handle ** postForgotPassword
+exports.postForgotPassword = (req, res) => {
+    const { email } = req.body;
+
+    User.findOne({ email })
+    .then(user => {
+        if(!user) {
+            console.log("Email not linked to account");
+        } else {
+            // Create passwordResetToken
+            var seed = crypto.randomBytes(20);
+            const passResetToken = crypto.createHash('sha1').update(seed + email).digest('hex');
+
+            // Save passwordResetToken to DB
+            user.passwordResetToken = passResetToken;
+
+            user.save()
+            .then(user => {
+                req.flash('success_msg', 'Reset password link sent to email');
+
+                // URL to send to user to verify
+                URL = "http://localhost:5000/new-password?id=" + passResetToken;
+
+                // Send verification email
+                transporter.sendMail({
+                    to: email,
+                    from: 'no-reply@camagru.com',
+                    subject: 'Camagru - Reset Password link',
+                    html: '<h1>Youve requested a password reset for Camagru<h1>',
+                    html: `Click the following link to change your password:</p><p>${URL}</p>`,
+                });
+                res.redirect('/forgot-password');
+            })
+        }
+    })
+}
 
 // Controller for New Password page ** getNewPassword
-exports.getNewPassword = (req, res) => res.render('authentication/new-password');
+exports.getNewPassword = (req, res) => {
+    var passResetTokenFromURL = req.query.id;
+
+    URL
+    res.render('authentication/new-password');
+}
 
 // Controller for New Password Handle ** postNewPassword
 
@@ -139,7 +179,7 @@ exports.postRegister = (req, res) => {
     }
 };
 
-// Controller for Verify page ** getVerify
+// Controller for Verify Handle ** getVerify
 exports.getVerify = (req, res) => {
     var verifyTokenFromURL = req.query.id;
 
