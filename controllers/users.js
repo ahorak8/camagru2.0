@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 
 // User model
 const User = require('../models/User');
+const Image = require('../models/image');
 
 // Controller for My Account page ** getMyAccount
 exports.getMyAccount = (req, res) =>

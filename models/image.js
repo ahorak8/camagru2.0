@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
-const imageSchema = new mongoose.Schema( {
+const Schema = mongoose.Schema;
+
+const imageSchema = new Schema({
     userID : {
         type: Schema.Types.ObjectId,
-        ret: User,
+        ref: 'User',
         required: true
     },
     image : {
@@ -11,7 +13,7 @@ const imageSchema = new mongoose.Schema( {
         required: true
     },
     likes: {
-        type: number,
+        type: Number,
         default: 0
     }
 });

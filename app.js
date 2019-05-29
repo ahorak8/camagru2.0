@@ -1,5 +1,5 @@
 const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
+// const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -34,7 +34,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/public/')));
 
 // Bodyparser middleware
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false, limit: '5mb'}));
 
 // Express Session middleware
 app.use(session({

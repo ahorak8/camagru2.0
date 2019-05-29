@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
-const commentSchema = new mongoose.Schema ({
+const Schema = mongoose.Schema;
+
+const commentSchema = new Schema ({
     userID : {
         type: Schema.Types.ObjectId,
-        ret: User,
+        ref: 'User',
         required: true
     },
     imageID : {
