@@ -32,10 +32,10 @@ function startCam() {
                         context.drawImage(element, 400, 140, 150, 150);
                     }
                     else if (element.id === "sticker4") {
-                        context.drawImage(element, 0, 0, 600, 450);
+                        context.drawImage(element, 40, 130, 150, 150);
                     }
                     else if (element.id === "sticker5") {
-                        context.drawImage(element, 140, 228, 300, 300);
+                        context.drawImage(element, 400, 140, 150, 150);
                     }
                     let dataURL = canvas.toDataURL('image/png');
                     document.getElementById("imgsrc").value = dataURL;
