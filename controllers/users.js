@@ -77,11 +77,41 @@ exports.postStudio = (req, res, next) => {
     }
 };
 
+// Controller for My Images page ** getMyImages
+exports.getMyImages = (req, res, next) => {
+    Image.find({ userID: req.user._id})
+    .then(images => {
+        res.render('user/my-images', {
+            images: images,
+            userName: req.user.name
+        });
+    })
+    .catch(err => {
+        console.log(err);
+    });
+};
+
 // Controller for Gallery page ** getGallery
-exports.getGallery = (req, res) => 
-res.render('user/gallery', {
-    userName: req.user.name
-});
+exports.getGallery = (req, res) => {
+    res.render('user/gallery', {
+        userName: req.user.name
+    })
+}
+
+
+// Controllers for Delete Image ** postDeleteImage
+exports.postDeleteImage = (req, res, next) => {
+    const imageId = req.body.imageId;
+    console.log(imageId);
+
+    // .remove is deprecated, should use .deleteOne (but it didn't work)
+    Image.remove({ _id: imageId })
+      .then(() => {
+        console.log('Image Deleted!');
+        res.redirect('/users/my-images');
+      })
+      .catch(err => console.log(err));
+  };
 
 // Controller for Delete Account Handle **
 exports.getDeleteAccount = (req, res) => {

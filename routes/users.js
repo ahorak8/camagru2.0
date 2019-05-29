@@ -8,15 +8,7 @@ const { ensureAuthenticated } = require('../config/auth');
 const authenticationController = require('../controllers/authentication');
 const usersController = require('../controllers/users');
 
- // Gallery page
- router.get('/gallery', ensureAuthenticated, usersController.getGallery);
-
-//Studio page
-router.get('/studio', ensureAuthenticated, usersController.getStudio);
-
-// Studio Handle
-router.post('/studio', usersController.postStudio);
-
+ // ** ACCOUNT ROUTES **
 // User "My Account" page - update details
 router.get('/my-account', ensureAuthenticated, usersController.getMyAccount);
 
@@ -27,6 +19,22 @@ router.post('/my-account', ensureAuthenticated, usersController.postMyAccount);
 router.get('/logout', authenticationController.getLogout);
 
 // Delete Account Handle
-router.get('/delete-account', usersController.getDeleteAccount);
+router.post('/delete-account', ensureAuthenticated, usersController.getDeleteAccount);
+
+// ** IMAGE ROUTES **
+// User My Images page
+router.get('/my-images', ensureAuthenticated, usersController.getMyImages);
+
+// Gallery page
+router.get('/gallery', ensureAuthenticated, usersController.getGallery);
+
+//Studio page
+router.get('/studio', ensureAuthenticated, usersController.getStudio);
+
+// Studio Handle
+router.post('/studio', usersController.postStudio);
+
+// Delete Image Handle
+router.post('/delete-image', ensureAuthenticated, usersController.postDeleteImage);
 
 module.exports = router;
