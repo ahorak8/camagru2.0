@@ -82,7 +82,7 @@ exports.postNewPassword = (req, res) => {
     var passResetTokenFromURL = req.query.id;
     const { password, password2 } = req.body;
 
-    User.findOne({ passResetToken: passResetTokenFromURL })
+    User.findOne({ passwordResetToken: passResetTokenFromURL })
     .then(user => {
         if(!user) {
             req.flash('error', 'Reset token not valid');
@@ -110,6 +110,8 @@ exports.postNewPassword = (req, res) => {
 
                 newHashPassword = hash;
                 user.password = newHashPassword;
+                user.passwordResetToken = '';
+
                 user.save();
                 req.flash('success_msg', 'Password updated. You can log in using your new password');
                 res.redirect('/login');

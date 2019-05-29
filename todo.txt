@@ -26,7 +26,7 @@ Less important to do:
 *Must display correctly on mobile devices
 *Must have an adapted layout on small resolutions
 
-*User features:
+*User features: - 99% DONE
 - Allow a user to sign up by:
     - valid email address
     - username

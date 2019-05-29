@@ -1,15 +1,16 @@
 <%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" src="css/studio.css">
 <title>Studio | Camagru</title>
 </head>
-<body>
+<body onload="startCam()">
 
 <h1 class="mt-4">Studio</h1>
     <%- include('../includes/navbar.ejs') %>
 <main>
         <div class="booth">
-            <video id="video" width="600" height="450" autoplay></video>
+            <video id="video" width="600" height="450" autoplay></video><canvas id="canvas" width="600" height="450"></canvas>
             <button class="button-pic" id="snap">Snap Photo</button>
-            <canvas id="canvas" width="600" height="450"></canvas>
+            
             <form method="post" action="/users/studio">
                 <input name="imgsrc" id="imgsrc" type="hidden">
                 <button class="button-pic" type="submit" name="submit" id="submitphoto">Submit Photo</button>
@@ -17,12 +18,12 @@
         </div>
     
     </br>
-    <div class="flex-container">
+    <div class="this-container">
         <img class="items" id="sticker1" src="/stickers/1.png">
         <img class="items" id="sticker2" src="/stickers/2.png">
         <img class="items" id="sticker3" src="/stickers/3.png">
-        <!-- <img class="items" id="sticker4" src="/stickers/4.png">
-        <img class="items" id="sticker5" src="/stickers/5.png"> -->
+        <img class="items" id="sticker4" src="/stickers/4.png">
+        <img class="items" id="sticker5" src="/stickers/5.png">
     </div>
 </main>
 
