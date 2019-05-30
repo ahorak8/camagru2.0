@@ -23,7 +23,7 @@
             </form>
             <textarea style="resize:none; font-size: 15px;" rows="15" cols="72" disabled>
                     <% for (let comment of comments.reverse()) { %>
-                <%= comment.userID.username %>:
+                <%= comment.userID.name %>:
                 <%= comment.comment %>
                 <% } %>
             </textarea>

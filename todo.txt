@@ -1,7 +1,5 @@
 NB TODO:
 - studio (upload images) : users/studio
-- display gallery : users/gallery && /guest
-- image comments and likes : users/gallery && image_url
 - comment notification send : image_url
 - pagination
 

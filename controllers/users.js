@@ -178,7 +178,7 @@ exports.postComments = (req, res) => {
     newComment.save(err => {
         console.log(err);
         var URL = '/users/image?id=' + imageID;
-        res.redirect('/users/gallery');
+        res.redirect(URL);
     })
 }
 
