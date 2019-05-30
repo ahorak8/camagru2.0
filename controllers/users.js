@@ -97,7 +97,9 @@ exports.getGallery = (req, res) => {
     .then(images => {
         res.render('user/gallery', {
             images: images,
-            userName: req.user.name
+            id: images._id,
+            userName: req.user.name,
+            likes: images.likes
         });
     })
     .catch(err => {
@@ -105,19 +107,52 @@ exports.getGallery = (req, res) => {
     })
 }
 
+// Controller for Image ** getImage
+exports.getImage = (req, res) => {
+    var imageID = req.query.id;
+    console.log(imageID);
+
+    Image.findOne({ _id: imageID })
+    .then(images => {
+        res.render('user/image', {
+            images: images,
+            likes: images.likes,
+            userName: req.user.name
+        })
+    })
+    .catch(err => console.log(err));
+}
+
 // Controllers for Delete Image ** postDeleteImage
 exports.postDeleteImage = (req, res, next) => {
-    const imageId = req.body.imageId;
-    console.log(imageId);
+    const imageID = req.body.imageID;
 
     // .remove is deprecated, should use .deleteOne (but it didn't work)
-    Image.remove({ _id: imageId })
+    Image.remove({ _id: imageID })
       .then(() => {
         console.log('Image Deleted!');
         res.redirect('/users/my-images');
       })
       .catch(err => console.log(err));
   };
+
+  // Controller for Likes ** getLikes
+  exports.postLike = (req, res) => {
+      const imageID = req.body.imageID;
+
+      Image.findOne({ _id: imageID })
+      .then(image => {
+          console.log(imageID);
+          const likes = image.likes;
+          image.likes = likes + 1;
+          image.save();
+
+          res.redirect('/users/gallery');
+      })
+      .catch(err => {
+          console.log(err);
+      })
+  }
 
 // Controller for Delete Account Handle **
 exports.getDeleteAccount = (req, res) => {

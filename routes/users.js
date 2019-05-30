@@ -37,4 +37,12 @@ router.post('/studio', usersController.postStudio);
 // Delete Image Handle
 router.post('/delete-image', ensureAuthenticated, usersController.postDeleteImage);
 
+// Like Handle 
+router.post('/like', ensureAuthenticated, usersController.postLike);
+
+// Image Page
+router.get('/image', ensureAuthenticated, usersController.getImage);
+
+// Image
+
 module.exports = router;

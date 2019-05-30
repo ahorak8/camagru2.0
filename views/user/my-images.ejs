@@ -9,21 +9,19 @@
 
 <main>
         <% if (images.length > 0) { %>
-            <div class="grid">
                 <% for (let image of images.reverse()) { %>
-                    <article class="card product-item">
-                        <div class="card__image">
+                        <!-- Div below is to display the image -->
+                        <div >
                             <img src="<%= image.image %>" alt="">
                         </div>
-                        <div class="card__actions">
+                        <!-- Div below is for deleting images -->
+                        <div>
                             <form action="/users/delete-image" method="POST">
                                 <input type="hidden" value="<%= image._id %>" name="imageId">
                                 <button class="btn btn-danger" type="submit">Delete</button>
                             </form>
                         </div>
-                    </article>
                     <% } %>
-            </div>
             <% } else { %>
                 <div>
                   <h1>No photos to display</h1>
