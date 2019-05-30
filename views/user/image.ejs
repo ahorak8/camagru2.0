@@ -1,24 +1,39 @@
 <!-- Gallery for Logged in Users -->
 <%- include('../includes/head.ejs') %>
-<title>Gallery | Camagru</title>
+<title>Image | Camagru</title>
 </head>
 <body>
-<h1 class="mt-4">Camagru Gallery</h1>
+<h1 class="mt-4"> Image</h1>
 <%- include('../includes/navbar.ejs') %>
 
 <main>
     <% if (images.length > 0) { %>
+    <div>
         <div>
             <% for (let image of images.reverse()) { %>
             <img src="<%= image.image %>" alt="">
-            <p>Likes:</p> <span class="badge badge-secondary"><%= image.likes%></span>
+            <p>Likes:</p> <span class="badge badge-secondary">
+                <%= image.likes%></span>
+            
         </div>
         <div>
             <form action="/users/like" method="POST">
                 <input type="hidden" value="<%= image._id %>" name="imageID">
                 <button class="btn btn-success" type="submit">Like</button>
             </form>
+            <textarea style="resize:none; font-size: 15px;" rows="15" cols="72" disabled>
+                    <% for (let comment of comments.reverse()) { %>
+                <%= comment.userID.username %>:
+                <%= comment.comment %>
+                <% } %>
+            </textarea>
+            <form action="/users/comment" method="POST" ;>
+                <textarea style="resize:none;" rows="7" cols="96" name="comment" required placeholder="Write Comment Here" ;></textarea>
+                <button type="submit" class="btn btn-success" name="submitcomment">Submit Comment</button>
+                <input type="hidden" name="imageID" value="<%= image._id %>">
+            </form>
         </div>
+    </div>
     </br>
     <% } %>
         

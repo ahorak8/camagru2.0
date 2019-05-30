@@ -10,7 +10,7 @@ const commentSchema = new Schema ({
     },
     imageID : {
         type: Schema.Types.ObjectId,
-        ret: Images,
+        ref: 'Images',
         required: true
     },
     comment : {

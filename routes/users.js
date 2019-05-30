@@ -21,6 +21,7 @@ router.get('/logout', authenticationController.getLogout);
 // Delete Account Handle
 router.post('/delete-account', ensureAuthenticated, usersController.getDeleteAccount);
 
+
 // ** IMAGE ROUTES **
 // User My Images page
 router.get('/my-images', ensureAuthenticated, usersController.getMyImages);
@@ -43,6 +44,9 @@ router.post('/like', ensureAuthenticated, usersController.postLike);
 // Image Page
 router.get('/image', ensureAuthenticated, usersController.getImage);
 
-// Image
+router.get('/comment', ensureAuthenticated, usersController.getImage);
+
+// Comments Handle
+router.post('/comment', ensureAuthenticated, usersController.postComments);
 
 module.exports = router;

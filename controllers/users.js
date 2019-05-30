@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 // User model
 const User = require('../models/User');
 const Image = require('../models/image');
+const Comment = require('../models/imageComment');
 
 // Controller for My Account page ** getMyAccount
 exports.getMyAccount = (req, res) =>
@@ -109,15 +110,23 @@ exports.getGallery = (req, res) => {
 
 // Controller for Image ** getImage
 exports.getImage = (req, res) => {
-    var imageID = req.query.id;
-    console.log(imageID);
+    const imageID = req.query.id;
 
     Image.find({ _id: imageID })
         .then(images => {
-            res.render('user/image', {
-                images: images,
-                likes: images.likes,
-                userName: req.user.name
+            Comment.find ({ imageID })
+                .populate('userID')
+                .exec()
+                .then( comments => {
+                    res.render('user/image', {
+                        images: images,
+                        likes: images.likes,
+                        userName: req.user.name,
+                        comments: comments
+                })
+            })
+            .catch(err => {
+                console.log(err);
             })
         })
         .catch(err => console.log(err));
@@ -147,12 +156,31 @@ exports.postDeleteImage = (req, res, next) => {
           image.likes = likes + 1;
           image.save();
 
-          res.redirect('/users/gallery');
+          res.redirect('back');
       })
       .catch(err => {
           console.log(err);
       })
   }
+
+// Controller for comment ** postComments
+exports.postComments = (req, res) => {
+    const comment = req.body.comment;
+    const imageID = req.body.imageID;
+    const userID = req.user._id;
+
+    const newComment = new Comment({
+        userID: userID,
+        imageID: imageID,
+        comment: comment
+    })
+
+    newComment.save(err => {
+        console.log(err);
+        var URL = '/users/image?id=' + imageID;
+        res.redirect('/users/gallery');
+    })
+}
 
 // Controller for Delete Account Handle **
 exports.getDeleteAccount = (req, res) => {
