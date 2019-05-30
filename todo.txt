@@ -1,10 +1,12 @@
 NB TODO:
-- studio (webcam, upload images, stickers) : users/studio
+- studio (upload images) : users/studio
 - display gallery : users/gallery && /guest
 - image comments and likes : users/gallery && image_url
 - comment notification send : image_url
+- pagination
 
 Less important to do:
+- username next to their image
 - update all account details at same time : users/my-account
 - more complex password required : users/register
 - Password Reset Token expires 

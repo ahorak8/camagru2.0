@@ -93,11 +93,17 @@ exports.getMyImages = (req, res, next) => {
 
 // Controller for Gallery page ** getGallery
 exports.getGallery = (req, res) => {
-    res.render('user/gallery', {
-        userName: req.user.name
+    Image.find()
+    .then(images => {
+        res.render('user/gallery', {
+            images: images,
+            userName: req.user.name
+        });
+    })
+    .catch(err => {
+        console.log(err);
     })
 }
-
 
 // Controllers for Delete Image ** postDeleteImage
 exports.postDeleteImage = (req, res, next) => {

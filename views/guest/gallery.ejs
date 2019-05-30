@@ -6,4 +6,25 @@
 <h1 class="mt-4">Camagru Gallery</h1>
 <%- include('../includes/guest-navbar.ejs') %>
 
+<main>
+        <% if (images.length > 0) { %>
+            <div class="grid">
+                <% for (let image of images.reverse()) { %>
+                    <article class="card product-item">
+                        <div class="card__image">
+                            <img src="<%= image.image %>" alt="">
+                        </div>
+                        <div>
+                            <!-- <p>User: <%= userName %></p> -->
+                        </div>
+                    </article>
+                    <% } %>
+            </div>
+            <% } else { %>
+                <div>
+                  <h1>No photos to display</h1>
+                </div>
+                <% } %>
+    </main>
+
 <%- include('../includes/end.ejs') %>
