@@ -2,18 +2,22 @@
 <%- include('../includes/head.ejs') %>
 <title>Gallery | Camagru</title>
 </head>
-<body>
-<h1 class="mt-4">Camagru Gallery</h1>
-<%- include('../includes/navbar.ejs') %>
 
-<main>
-    <% if (images.length > 0) { %>
+<body>
+    <h1 class="mt-4">Camagru Gallery</h1>
+    <%- include('../includes/navbar.ejs') %>
+
+    <main>
+        <% if (images.length > 0) { %>
         <% for (let image of images.reverse()) { %>
         <div>
             <% var imageURL = '/users/image?id=' + image._id %>
-           <a href="<%= imageURL %>"><img src="<%= image.image %>" alt=""></a>
-           <p><%= image.userID.name %></p>
-           <p>Likes:</p> <span class="badge badge-secondary"><%= image.likes%></span>
+            <a href="<%= imageURL %>"><img src="<%= image.image %>" alt=""></a>
+            <p>
+                <%= image.userID.name %>
+            </p>
+            <p>Likes:</p> <span class="badge badge-secondary">
+                <%= image.likes%></span>
         </div>
         <div>
             <form action="/users/like" method="POST">
@@ -21,14 +25,34 @@
                 <button class="btn btn-success" type="submit">Like</button>
             </form>
         </div>
-    </br>
-    <% } %>
-        
-    <% } else { %>
+        </br>
+        <% } %>
+
+        <% } else { %>
         <div>
             <h1>No photos to display</h1>
         </div>
-    <% } %>
-</main>
+        <% } %>
+        <div>
+            <ul class="pagination pagination-lg">
+                <div class="center">
+                    <div class="pagination">
+                        <% let num = images.length;
+                        let counter = 1;
+                        let toRound = num / 5;
+                        let pages = Math.ceil(toRound);
+                        if (num % 5 > 0) {
+                            pages = pages + 1;
+                        }
+                        while(counter <= pages) { %>
+                        <li class="page-item">
+                            <a href="/gallery/<%= counter %>" class="<% if (currentPage === counter) { %>active<% } %>"
+                                </a> </li> <%=counter %></a>
+                            <% counter = counter+ 1; } %>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </main>
 
-<%- include('../includes/end.ejs') %>
+    <%- include('../includes/end.ejs') %>

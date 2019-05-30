@@ -2,26 +2,50 @@
 <%- include('../includes/head.ejs') %>
 <title>Gallery | Camagru</title>
 </head>
+
 <body>
-<h1 class="mt-4">Camagru Gallery</h1>
-<%- include('../includes/guest-navbar.ejs') %>
+    <h1 class="mt-4">Camagru Gallery</h1>
+    <%- include('../includes/guest-navbar.ejs') %>
 
-<main>
-<% if (images.length) { %>
-<% for (let image of images.reverse()) { %>
-<div>
-    <img src="<%= image.image %>" alt="">
-    <p>Likes:</p> <span class="badge badge-secondary"><%= image.likes%></span>
-    <p><%= image.userID.name %></p>
-</div>
-</br>
-<% } %>
+    <main>
+        <% if (images.length) { %>
+        <% for (let image of images.reverse()) { %>
+        <div>
+            <img src="<%= image.image %>" alt="">
+            <p>Likes:</p> <span class="badge badge-secondary">
+                <%= image.likes%></span>
+            <p>
+                <%= image.userID.name %>
+            </p>
+        </div>
+        </br>
+        <% } %>
 
-<% } else { %>
-<div>
-    <h1>No photos to display</h1>
-</div>
-<% } %>
-</main>
+        <% } else { %>
+        <div>
+            <h1>No photos to display</h1>
+        </div>
+        <% } %>
+        <div>
+            <ul class="pagination pagination-lg">
+                <div class="center">
+                    <div class="pagination">
+                        <% let num = images.length;
+                        let counter = 1;
+                        let toRound = num / 5;
+                        let pages = Math.ceil(toRound);
+                        if (num % 5 > 0) {
+                            pages = pages + 1;
+                        }
+                        while(counter <= pages) { %>
+                        <li class="page-item">
+                            <a href="/gallery/<%= counter %>" class="<% if (currentPage === counter) { %>active<% } %>"
+                                </a> <%=counter %></a></li> 
+                            <% counter = counter+ 1; } %>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </main>
 
-<%- include('../includes/end.ejs') %>
+    <%- include('../includes/end.ejs') %>

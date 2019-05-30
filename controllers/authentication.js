@@ -24,7 +24,7 @@ exports.getLogin = (req, res) => res.render('authentication/login');
 // Controller for Log in Handle ** postLogin
 exports.postLogin = (req, res, next) => {
     passport.authenticate('local', {
-        successRedirect: '/users/gallery',
+        successRedirect: '/users/studio',
         failureRedirect: '/login',
         failureFlash: true
     })(req, res, next);
