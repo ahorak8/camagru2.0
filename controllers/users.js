@@ -112,15 +112,15 @@ exports.getImage = (req, res) => {
     var imageID = req.query.id;
     console.log(imageID);
 
-    Image.findOne({ _id: imageID })
-    .then(images => {
-        res.render('user/image', {
-            images: images,
-            likes: images.likes,
-            userName: req.user.name
+    Image.find({ _id: imageID })
+        .then(images => {
+            res.render('user/image', {
+                images: images,
+                likes: images.likes,
+                userName: req.user.name
+            })
         })
-    })
-    .catch(err => console.log(err));
+        .catch(err => console.log(err));
 }
 
 // Controllers for Delete Image ** postDeleteImage

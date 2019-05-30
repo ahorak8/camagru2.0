@@ -1,0 +1,32 @@
+<!-- Gallery for Logged in Users -->
+<%- include('../includes/head.ejs') %>
+<title>Gallery | Camagru</title>
+</head>
+<body>
+<h1 class="mt-4">Camagru Gallery</h1>
+<%- include('../includes/navbar.ejs') %>
+
+<main>
+    <% if (images.length > 0) { %>
+        <div>
+            <% for (let image of images.reverse()) { %>
+            <img src="<%= image.image %>" alt="">
+            <p>Likes:</p> <span class="badge badge-secondary"><%= image.likes%></span>
+        </div>
+        <div>
+            <form action="/users/like" method="POST">
+                <input type="hidden" value="<%= image._id %>" name="imageID">
+                <button class="btn btn-success" type="submit">Like</button>
+            </form>
+        </div>
+    </br>
+    <% } %>
+        
+    <% } else { %>
+        <div>
+            <h1>No photos to display</h1>
+        </div>
+    <% } %>
+</main>
+
+<%- include('../includes/end.ejs') %>

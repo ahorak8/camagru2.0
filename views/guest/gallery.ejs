@@ -7,24 +7,20 @@
 <%- include('../includes/guest-navbar.ejs') %>
 
 <main>
-        <% if (images.length > 0) { %>
-            <div class="grid">
-                <% for (let image of images.reverse()) { %>
-                    <article class="card product-item">
-                        <div class="card__image">
-                            <img src="<%= image.image %>" alt="">
-                        </div>
-                        <div>
-                            <!-- <p>User: <%= userName %></p> -->
-                        </div>
-                    </article>
-                    <% } %>
-            </div>
-            <% } else { %>
-                <div>
-                  <h1>No photos to display</h1>
-                </div>
-                <% } %>
-    </main>
+<% if (images.length) { %>
+<% for (let image of images.reverse()) { %>
+<div>
+    <img src="<%= image.image %>" alt="">
+    <p>Likes:</p> <span class="badge badge-secondary"><%= image.likes%></span>
+</div>
+</br>
+<% } %>
+
+<% } else { %>
+<div>
+    <h1>No photos to display</h1>
+</div>
+<% } %>
+</main>
 
 <%- include('../includes/end.ejs') %>
