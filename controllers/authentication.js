@@ -74,51 +74,55 @@ exports.postForgotPassword = (req, res) => {
 
 // Controller for New Password page ** getNewPassword
 exports.getNewPassword = (req, res) => {
-    res.render('authentication/new-password');
+    res.render('authentication/new-password', {
+        passResetTokenFromURL: req.query.id
+    });
 }
 
 // Controller for New Password Handle ** postNewPassword
 exports.postNewPassword = (req, res) => {
-    var passResetTokenFromURL = req.query.id;
+    var passResetTokenFromURL = req.body.passResetTokenFromURL;
     const { password, password2 } = req.body;
     console.log(passResetTokenFromURL);
 
     User.findOne({ passwordResetToken: passResetTokenFromURL })
-    .then(user => {
-        if(!user) {
-            req.flash('error', 'Reset token not valid');
-            res.redirect('/forgot-password');
-            return;
-        }
-        if (!password || !password2) {
-            req.flash('error', 'Fill in your new password');
-            res.redirect('back');
-            return;
-        }
-        if (password != password2) {
-            req.flash('error', 'Passwords do not match');
-            res.redirect('back');
-            return;
-        }
-        if (!password.length > 6) {
-            req.flash('error', 'Password must be at least 6 characters');
-            res.redirect('back');
-            return;
-        }
-        bcrypt.genSalt(10, (err, salt) =>
-            bcrypt.hash(password, salt, (err, hash) => {
-                if (err) throw err;
+        .then(user => {
+            if (!user) {
+                req.flash('error', 'Reset token not valid');
+                res.redirect('/forgot-password');
+                return;
+            }
+            if (!password || !password2) {
+                req.flash('error', 'Fill in your new password');
+                res.redirect('back');
+                return;
+            }
+            if (password != password2) {
+                req.flash('error', 'Passwords do not match');
+                res.redirect('back');
+                return;
+            }
+            if (!password.length > 6) {
+                req.flash('error', 'Password must be at least 6 characters');
+                res.redirect('back');
+                return;
+            }
 
-                newHashPassword = hash;
-                user.password = newHashPassword;
-                user.passwordResetToken = '';
+            bcrypt.genSalt(10, (err, salt) =>
+                bcrypt.hash(password, salt, (err, hash) => {
+                    if (err) throw err;
 
-                user.save();
-                req.flash('success_msg', 'Password updated. You can log in using your new password');
-                res.redirect('/login');
-            }))
-    })
-    .catch (err => console.log(err));
+                    newHashPassword = hash;
+
+                    user.password = newHashPassword;
+                    user.passwordResetToken = '';
+
+                    user.save()
+                    req.flash('success_msg', 'Password updated. You can log in using your new password');
+                    res.redirect('/login');
+                }))
+        })
+        .catch(err => console.log(err));
 }
 
 // Controller for Logout Handle ** getLogout
