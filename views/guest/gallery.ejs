@@ -10,7 +10,7 @@
     <main>
         <% if (images.length) { %>
         <% for (let image of images.reverse()) { %>
-        <div style="margin-left: auto; margin-right: auto;display: block; max-width: 37.8%; border:10px solid darkgray;">
+        <div style="margin-left: auto; margin-right: auto;display: block; max-width: 50%; border:10px solid darkgray;">
             <img src="<%= image.image %>" alt="">
             <p>Likes: <span class="badge badge-secondary">
                 <%= image.likes%></span></p>

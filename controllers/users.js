@@ -83,7 +83,6 @@ res.render('user/studio', {
 // Controller for Studio page ** getStudio
 exports.postStudio = (req, res, next) => {
     if (req.files.insert) {
-        console.log(req);
         var img = req.files.insert.path;
         console.log(img);
         var imgset = 'data:image/png;base64,';
@@ -104,7 +103,7 @@ exports.postStudio = (req, res, next) => {
                 console.log(err);
             });
         }
-    else if (req.body.imgsrc) {
+    if (req.body.imgsrc) {
         const img = req.body.imgsrc;
         const userID = req.user;
 
