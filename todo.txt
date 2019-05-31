@@ -1,6 +1,5 @@
 NB TODO:
 - studio (upload images) : users/studio
-- comment notification send : image_url
 
 Less important to do:
 - username next to their image

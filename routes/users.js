@@ -19,7 +19,7 @@ router.post('/my-account', ensureAuthenticated, usersController.postMyAccount);
 router.get('/logout', authenticationController.getLogout);
 
 // Delete Account Handle
-router.post('/delete-account', ensureAuthenticated, usersController.getDeleteAccount);
+router.post('/delete-account', ensureAuthenticated, usersController.postDeleteAccount);
 
 
 // ** IMAGE ROUTES **

@@ -234,6 +234,27 @@ exports.postComments = (req, res) => {
 }
 
 // Controller for Delete Account Handle **
-exports.getDeleteAccount = (req, res) => {
+exports.postDeleteAccount = (req, res) => {
+    userID = req.body.userID;
     
+    Image.remove({ userID: userID })
+        .then(() => {
+            Comment.remove({ userID: userID })
+                .then(() => {
+                    User.remove({ _id: userID })
+                        .then(() => {
+                            req.flash('success_msg', 'Account Deleted!');
+                            res.redirect('/login');
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }

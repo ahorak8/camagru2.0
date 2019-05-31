@@ -48,11 +48,16 @@
 </form>
 <!-- ACTION NEEDED - User delete account -->
 </br>
-<form action="/delete-account"> 
-        <button type="submit" class="btn btn-danger">
-                Delete Account
-            </button>
-</form>
+<form action="/users/delete-account" method="POST"> 
+    <input type="hidden" value="<%= userID %>" name="userID">
+     <button type="submit" onclick="if(!confirm('Are you sure you want to delete your account?')) {return false}" class="btn btn-danger">
+            Delete Account
+    </button>
+ </form>
 </br>
 
 <%- include('../includes/end.ejs') %>
+
+<script>
+
+</script>
