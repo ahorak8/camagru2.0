@@ -12,9 +12,11 @@
         <div>
             <% for (let image of images.reverse()) { %>
             <img src="<%= image.image %>" alt="">
-            <p>Likes:</p> <span class="badge badge-secondary">
-                <%= image.likes%></span>
-            
+            <p>Likes: <span class="badge badge-secondary">
+                <%= image.likes%></span></p>
+            <p>
+                <%= image.userID.name %>
+            </p>
         </div>
         <div>
             <form action="/users/like" method="POST">
@@ -31,6 +33,7 @@
                 <textarea style="resize:none;" rows="7" cols="96" name="comment" required placeholder="Write Comment Here" ;></textarea>
                 <button type="submit" class="btn btn-success" name="submitcomment">Submit Comment</button>
                 <input type="hidden" name="imageID" value="<%= image._id %>">
+                <input type="hidden" name="userID" value="<%= image.userID %>">
             </form>
         </div>
     </div>

@@ -36,17 +36,9 @@
 <!-- Choose email notifications for comments : select yes or no -->
     <div class="form-group">
         <div class="form-check">
-            <label> Would you like to receive notifications via email of comments?</label>
-        </br>
-              <input type="radio" class="form-check-input" name="emailNotifications" id="optionsRadios1" value="true" checked="">
-              <label>Yes</label>
-            <!-- </label> -->
-          </div>
-          <div class="form-check">
-          <!-- <label class="form-check-label"> -->
-              <input type="radio" class="form-check-input" name="emailNotifications" id="optionsRadios2" value="false">
-             <label>No </label> 
-            <!-- </label> -->
+            <label> Would you like to receive notifications via email of comments? (Currently: <%= userEmailNotification %>)</label>
+            <input type="checkbox" name="emailNotifications" value="true">
+            <p>Check box for yes. Leave unchecked for no</p>
           </div>
     </div>        
 

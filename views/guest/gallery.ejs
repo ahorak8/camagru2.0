@@ -12,8 +12,8 @@
         <% for (let image of images.reverse()) { %>
         <div>
             <img src="<%= image.image %>" alt="">
-            <p>Likes:</p> <span class="badge badge-secondary">
-                <%= image.likes%></span>
+            <p>Likes: <span class="badge badge-secondary">
+                <%= image.likes%></span></p>
             <p>
                 <%= image.userID.name %>
             </p>

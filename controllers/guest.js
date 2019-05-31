@@ -5,11 +5,6 @@ exports.getGuestGallery = (req, res, next) => {
     if (req.params.page) {
         currentPage = Number(req,params.page);
     } else currentPage = 1;
-    let thisUser;
-    if (req.user) {
-        thisUser = req.user.name;
-    }
-    else thisUser = false;
 
     Image.find()
         .populate('userID')
@@ -17,7 +12,6 @@ exports.getGuestGallery = (req, res, next) => {
         .then(images => {
             res.render('guest/gallery', {
                 images: images,
-                thisUser: thisUser,
                 currentPage: currentPage
                 // userName: req.user.name
             });

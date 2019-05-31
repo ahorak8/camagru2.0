@@ -1,7 +1,6 @@
 NB TODO:
 - studio (upload images) : users/studio
 - comment notification send : image_url
-- pagination
 
 Less important to do:
 - username next to their image

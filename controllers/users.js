@@ -1,6 +1,18 @@
 const bcrypt = require('bcryptjs');
 
-// User model
+// Variables for sending verification email
+const nodemailer = require('nodemailer');
+// const nodemailerSendgrid = require('nodemailer-sendgrid');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
+// Transporter variable
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth: {
+        // api_key: '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'
+        api_key: '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'
+    }
+}));
+
+// Models
 const User = require('../models/User');
 const Image = require('../models/image');
 const Comment = require('../models/imageComment');
@@ -11,14 +23,13 @@ res.render('user/my-account', {
     userName: req.user.name,
     userEmail: req.user.email,
     userID: req.user._id,
-    userEmailNotification: req.user.emailNotification
+    userEmailNotification: req.user.emailCommentNotification
 });
 
 // Controller for My Account Handle ** postMyAccount
 exports.postMyAccount = (req, res) => {
     const { oldEmail, newName, newEmail, newPassword, emailNotifications } = req.body;
 
-    console.log(emailNotifications);
     User.findOne({ email: oldEmail })
         .then(user => {
             if (!user) {
@@ -111,22 +122,18 @@ exports.getGallery = (req, res) => {
     if (req.params.page) {
         currentPage = Number(req.params.page);
     } else currentPage = 1;
-    let thisUser;
-    if (req.user) {
-        thisUser = req.user.username;
-    }
-    else thisUser = false;
 
     Image.find()
-    .then(images => {
-        res.render('user/gallery', {
-            images: images,
-            id: images._id,
-            userName: req.user.name,
-            thisUser: thisUser,
-            currentPage: currentPage,
-            likes: images.likes
-        });
+        .populate('userID')
+        .exec()
+        .then(images => {
+            res.render('user/gallery', {
+                images: images,
+                id: images._id,
+                userName: req.user.name,
+                currentPage: currentPage,
+                likes: images.likes
+            });
     })
     .catch(err => {
         console.log(err);
@@ -140,9 +147,9 @@ exports.getImage = (req, res) => {
     Image.find({ _id: imageID })
         .then(images => {
             Comment.find ({ imageID })
-                .populate('userID')
-                .exec()
-                .then( comments => {
+            .populate('userID')
+            .exec()
+                .then(comments => {
                     res.render('user/image', {
                         images: images,
                         likes: images.likes,
@@ -191,10 +198,11 @@ exports.postDeleteImage = (req, res, next) => {
 exports.postComments = (req, res) => {
     const comment = req.body.comment;
     const imageID = req.body.imageID;
-    const userID = req.user._id;
+    const userCommentID = req.user._id;
+    const userID = req.body.userID;
 
     const newComment = new Comment({
-        userID: userID,
+        userID: userCommentID,
         imageID: imageID,
         comment: comment
     })
@@ -203,7 +211,26 @@ exports.postComments = (req, res) => {
         console.log(err);
         var URL = '/users/image?id=' + imageID;
         res.redirect(URL);
+        User.findById(userID)
+            .then(user => {
+                console.log(user);
+                if(user.emailCommentNotification) {
+                    console.log("Sending email");
+                    console.log(user.email);
+                    transporter.sendMail({
+                        to: user.email,
+                        from: 'no-reply@camagru.com',
+                        subject: 'Camagru - Comment Notification',
+                        html: `Someone commented on your image:
+                                <p> ${comment}</p>`
+                    });
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
     })
+    
 }
 
 // Controller for Delete Account Handle **

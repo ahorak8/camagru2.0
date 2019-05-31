@@ -13,11 +13,11 @@
         <div>
             <% var imageURL = '/users/image?id=' + image._id %>
             <a href="<%= imageURL %>"><img src="<%= image.image %>" alt=""></a>
+            <p>Likes: <span class="badge badge-secondary">
+                <%= image.likes%></span></p>
             <p>
                 <%= image.userID.name %>
             </p>
-            <p>Likes:</p> <span class="badge badge-secondary">
-                <%= image.likes%></span>
         </div>
         <div>
             <form action="/users/like" method="POST">
