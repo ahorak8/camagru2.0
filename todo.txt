@@ -2,7 +2,6 @@ NB TODO:
 - studio (upload images) : users/studio
 
 Less important to do:
-- username next to their image
 - update all account details at same time : users/my-account
 - more complex password required : users/register
 - Password Reset Token expires 

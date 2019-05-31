@@ -10,7 +10,7 @@
     <main>
         <% if (images.length > 0) { %>
         <% for (let image of images.reverse()) { %>
-        <div>
+        <div style="margin-left: auto; margin-right: auto;display: block; max-width: 37.8%; border:10px solid darkgray;">
             <% var imageURL = '/users/image?id=' + image._id %>
             <a href="<%= imageURL %>"><img src="<%= image.image %>" alt=""></a>
             <p>Likes: <span class="badge badge-secondary">

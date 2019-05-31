@@ -7,6 +7,7 @@ const passport = require('passport');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser'); 
 const path = require('path');
+const multiparty = require('connect-multiparty');
 
 const app = express();
 
@@ -35,6 +36,9 @@ app.use(express.static(path.join(__dirname, '/public/')));
 
 // Bodyparser middleware
 app.use(bodyParser.urlencoded({ extended: false, limit: '5mb'}));
+
+// Multiparty middleware
+app.use(multiparty());
 
 // Express Session middleware
 app.use(session({

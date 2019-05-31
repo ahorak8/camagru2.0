@@ -81,6 +81,7 @@ exports.getNewPassword = (req, res) => {
 exports.postNewPassword = (req, res) => {
     var passResetTokenFromURL = req.query.id;
     const { password, password2 } = req.body;
+    console.log(passResetTokenFromURL);
 
     User.findOne({ passwordResetToken: passResetTokenFromURL })
     .then(user => {

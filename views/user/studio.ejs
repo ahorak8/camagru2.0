@@ -11,10 +11,13 @@
             <video id="video" width="600" height="450" autoplay></video><canvas id="canvas" width="600" height="450"></canvas>
             <button class="button-pic" id="snap">Snap Photo</button>
             
-            <form method="post" action="/users/studio">
+            <form method="post" action="/users/studio" enctype="multipart/form-data">
+                <input type="file" id="insert"
+                class="btn btn-primary" name="insert">
                 <input name="imgsrc" id="imgsrc" type="hidden">
                 <button class="button-pic" type="submit" name="submit" id="submitphoto">Submit Photo</button>
             </form>
+
         </div>
     
     </br>

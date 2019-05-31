@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+var fs = require('fs');
 
 // Variables for sending verification email
 const nodemailer = require('nodemailer');
@@ -81,7 +82,29 @@ res.render('user/studio', {
 
 // Controller for Studio page ** getStudio
 exports.postStudio = (req, res, next) => {
-    if (req.body.imgsrc) {
+    if (req.files.insert) {
+        console.log(req);
+        var img = req.files.insert.path;
+        console.log(img);
+        var imgset = 'data:image/png;base64,';
+        var userID = req.user;
+        var fimg = base_encode(img);
+        var final_img = imgset+fimg;
+        console.log(fimg);
+        
+        const image = new Image({
+            userID: userID,
+            image: final_img
+        });
+        image.save()
+            .then(result => {
+                res.redirect('/users/studio');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+    else if (req.body.imgsrc) {
         const img = req.body.imgsrc;
         const userID = req.user;
 
@@ -258,3 +281,9 @@ exports.postDeleteAccount = (req, res) => {
             console.log(err);
         })
 }
+
+// Function for upload image
+function base_encode(file) {
+    var baseimg = fs.readFileSync(file);
+    return new Buffer.from(baseimg).toString('base64');
+ };
